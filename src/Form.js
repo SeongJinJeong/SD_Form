@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+// Form 컴포넌트 : 최상위 컴포넌트
 const Form = ({}) => {
   return (
     <div style={FormStyle}>
@@ -23,14 +24,10 @@ const Form = ({}) => {
   );
 };
 
+//상단 타이틀과 서브 타이틀을 리턴함
 const TitleBox = ({}) => {
   return (
-    <div
-      style={{
-        display: "block",
-        textAlign: "center",
-        margin: "25px 0px",
-      }}>
+    <div style={TitleBoxStyle}>
       <h1 style={{ margin: 0 }}>홈페이지 제작 문의</h1>
       <h4 style={{ margin: 0, color: "gray" }}>
         아래 양식을 작성해주시면 확인 후 연락드리겠습니다.
@@ -39,6 +36,7 @@ const TitleBox = ({}) => {
   );
 };
 
+// 폼 항목들을 리턴함
 const FormContent = ({}) => {
   const [data, setData] = useState({
     name: "",
@@ -59,16 +57,7 @@ const FormContent = ({}) => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        textAlign: "center",
-        justifyContent: "center",
-        alignItems: "center",
-
-        width: "80%",
-      }}>
+    <div style={FormContentStyle}>
       <TextInputs
         text="회사명"
         data={data}
@@ -111,31 +100,15 @@ const FormContent = ({}) => {
   );
 };
 
+// 폼 항목 각 인풋의 이름을 리턴함
 const FormContentName = ({ name }) => {
-  return (
-    <div
-      style={{
-        padding: "10px 0px",
-        marginRight: "20px",
-        minWidth: "20%",
-        width: "100px",
-
-        fontSize: "15px",
-      }}>
-      {name}
-    </div>
-  );
+  return <div style={FormContentNameStyle}>{name}</div>;
 };
 
+// 폼 항목 인풋을 리턴함
 const TextInputs = ({ text, data, handleChange, type, placeHolder }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        margin: "5px 0px",
-        alignItems: "center",
-        width: "80%",
-      }}>
+    <div style={TextInputsStyle}>
       <FormContentName name={text} />
       <input
         type="text"
@@ -155,22 +128,17 @@ const TextInputs = ({ text, data, handleChange, type, placeHolder }) => {
   );
 };
 
+// 폼 항목중 전화번호 영역을 리턴함
 const TextNumber = ({ text, name, handleChange, type, placeHolder }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        margin: "5px 0px",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100%",
-      }}>
+    <div style={TextNumberStyle}>
       <FormContentName name={text} />
       <NumberInputBox handleChange={handleChange} />
     </div>
   );
 };
 
+// 폼 항목중 전화번호 인풋을 리턴함
 const NumberInputBox = ({ handleChange }) => {
   const [numbers, setNumbers] = useState({
     num1: null,
@@ -191,16 +159,6 @@ const NumberInputBox = ({ handleChange }) => {
   };
 
   return (
-    // <div
-    //   style={{
-    //     display: "flex",
-    //     flexDirection: "row",
-    //     alignItems: "center",
-    //     justifyContent: "center",
-
-    //     width: "70%",
-    //     height: "25px",
-    //   }}>
     <>
       <NumberBoxes
         handleNumberChange={handleNumberChange}
@@ -223,8 +181,8 @@ const NumberInputBox = ({ handleChange }) => {
   );
 };
 
+// 폼 항목 중 전화번호의 각 인풋을 리턴함
 const NumberBoxes = ({ handleNumberChange, value, type }) => {
-  // console.log(numbers.num + type);
   return (
     <input
       type="text"
@@ -236,30 +194,16 @@ const NumberBoxes = ({ handleNumberChange, value, type }) => {
           ? alert("숫자를 입력하세요")
           : handleNumberChange(e, type);
       }}
-      style={{
-        width: "13%",
-        height: "25px",
-        borderRadius: "3px",
-        border: "1px solid gray",
-        margin: "0px 3px",
-      }}
+      style={NumberBoxesStyle}
       maxLength={type === "num1" ? 3 : 4}
     />
   );
 };
 
+// 폼 항목 중 TextArea 를 리턴함
 const TextArea = ({ text, data, handleChange, type, placeHolder }) => {
   return (
-    <div
-      style={{
-        width: "80%",
-        display: "block",
-        // flexDirection: "column",
-        marginTop: "20px",
-        paddingTop: "20px",
-
-        borderTop: "1px dashed gray",
-      }}>
+    <div style={TextAreaStyle}>
       <p style={{ float: "left", marginBottom: "5px", marginTop: 0 }}>{text}</p>
       <textarea
         style={{}}
@@ -295,6 +239,7 @@ const TextArea = ({ text, data, handleChange, type, placeHolder }) => {
   );
 };
 
+// 폼 항목 중 상담신청 버튼을 리턴함
 const SubmitButton = ({ data }) => {
   const combinedText = `회사명은 ${data.name} 이다. 담당자명은 ${
     data.user
@@ -306,17 +251,7 @@ const SubmitButton = ({ data }) => {
   return (
     <button
       type="submit"
-      style={{
-        width: "100%",
-        height: "50px",
-        backgroundColor: "orangered",
-        color: "white",
-
-        margin: "20px 0px",
-
-        border: "none",
-        fontSize: "100%",
-      }}
+      style={SubmitButtonStyle}
       onClick={() => {
         alert(combinedText);
       }}>
@@ -325,6 +260,8 @@ const SubmitButton = ({ data }) => {
   );
 };
 
+//----------------------------------------------------------------------------------------
+// 하단에 스타일 객체값 정리
 const FormStyle = {
   display: "flex",
   flexDirection: "column",
@@ -334,11 +271,76 @@ const FormStyle = {
   backgroundColor: "white",
   width: "80%",
   maxWidth: "500px",
-  // minHeight: "80%",
-
   borderRadius: "10px 10px 10px 10px",
 };
 
-const FormContentStyle = {};
+const TitleBoxStyle = {
+  display: "block",
+  textAlign: "center",
+  margin: "25px 0px",
+};
+
+const FormContentStyle = {
+  display: "flex",
+  flexDirection: "column",
+  textAlign: "center",
+  justifyContent: "center",
+  alignItems: "center",
+
+  width: "80%",
+};
+
+const FormContentNameStyle = {
+  padding: "10px 0px",
+  marginRight: "20px",
+  minWidth: "20%",
+  width: "100px",
+
+  fontSize: "15px",
+};
+
+const TextInputsStyle = {
+  display: "flex",
+  margin: "5px 0px",
+  alignItems: "center",
+  width: "80%",
+};
+
+const TextNumberStyle = {
+  display: "flex",
+  margin: "5px 0px",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100%",
+};
+
+const NumberBoxesStyle = {
+  width: "13%",
+  height: "25px",
+  borderRadius: "3px",
+  border: "1px solid gray",
+  margin: "0px 3px",
+};
+
+const TextAreaStyle = {
+  width: "80%",
+  display: "block",
+  marginTop: "20px",
+  paddingTop: "20px",
+
+  borderTop: "1px dashed gray",
+};
+
+const SubmitButtonStyle = {
+  width: "100%",
+  height: "50px",
+  backgroundColor: "orangered",
+  color: "white",
+
+  margin: "20px 0px",
+
+  border: "none",
+  fontSize: "100%",
+};
 
 export default Form;
