@@ -48,7 +48,6 @@ const FormContent = ({}) => {
   });
 
   const handleChange = (e, name, isContact) => {
-    console.log(e);
     setData({
       ...data,
       [name]:
@@ -141,9 +140,9 @@ const TextNumber = ({ text, name, handleChange, type, placeHolder }) => {
 // 폼 항목중 전화번호 인풋을 리턴함
 const NumberInputBox = ({ handleChange }) => {
   const [numbers, setNumbers] = useState({
-    num1: null,
-    num2: null,
-    num3: null,
+    num1: "",
+    num2: "",
+    num3: "",
   });
 
   const handleNumberChange = (e, type) => {
@@ -188,8 +187,6 @@ const NumberBoxes = ({ handleNumberChange, value, type }) => {
       type="text"
       value={value}
       onChange={(e) => {
-        console.log(typeof parseInt(e.target.value));
-        console.log(parseInt(e.target.value));
         isNaN(parseInt(e.target.value))
           ? alert("숫자를 입력하세요")
           : handleNumberChange(e, type);
@@ -338,6 +335,7 @@ const SubmitButtonStyle = {
   color: "white",
 
   margin: "20px 0px",
+  marginBottom: "50px",
 
   border: "none",
   fontSize: "100%",
